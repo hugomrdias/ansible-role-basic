@@ -1,0 +1,26 @@
+---
+  - name: ntp | install debian ntp
+    apt: pkg=ntp state=present
+    notify:
+      - restart ntp
+
+  - name: ntp | Fetch leapseconds file
+    get_url:
+      url: "{{basic_ntp_leapurl}}"
+      dest: "/etc/ntp.leapseconds"
+      owner: "root"
+      group: "root"
+      mode: "0660"
+    notify:
+      - restart ntp
+
+  - name: ntp | configure ntp
+    template: src=ntp.conf.j2 dest=/etc/ntp.conf owner=root group=root mode=0644 backup=yes
+    notify:
+      - restart ntp
+
+  - name: ntp | Ensure NTP is running and enabled as configured.
+    service:
+      name: ntp
+      state: started
+      enabled: yes

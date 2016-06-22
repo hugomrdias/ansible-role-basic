@@ -1,0 +1,6 @@
+---
+  - name: apticron | install debian ntp
+    apt: pkg=apticron state=present
+
+  - name: apticron | configure
+    template: src=apticron.conf.j2 dest=/etc/apticron/apticron.conf owner=root group=root mode=0644 backup=yes

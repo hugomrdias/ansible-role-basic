@@ -1,0 +1,24 @@
+# Swap setup
+---
+  - name: swap | Create swap space
+    command: dd if=/dev/zero of={{ basic_swapfile_location }} bs=1M count={{ basic_swapfile_size }} creates={{ basic_swapfile_location }}
+    register: write_swapfile
+
+  - name: swap | Set permissions on the swapfile
+    file: path={{ basic_swapfile_location }} owner=root group=root mode=0600
+    when: write_swapfile.changed
+
+  - name: swap | Make swap
+    command: mkswap {{basic_swapfile_location}}
+    when: write_swapfile.changed
+
+  - name: swap | Add to fstab
+    lineinfile: dest=/etc/fstab regexp="swapfile" line="{{ basic_swapfile_location }} none swap sw 0 0" state=present
+    when: write_swapfile.changed
+    notify:
+      - swapoff
+      - swapon
+
+  - name: Configure vm.swappiness
+    lineinfile: dest=/etc/sysctl.conf line="vm.swappiness = {{ basic_swapfile_swappiness }}" regexp="^vm.swappiness[\s]?=" state=present
+    notify: reload sysctl

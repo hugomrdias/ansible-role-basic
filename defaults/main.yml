@@ -1,0 +1,48 @@
+# file: defaults/main.yml
+---
+basic_timezone: UTC
+basic_hostname: "{{ inventory_hostname }}"
+basic_ntp_leapurl: "http://www.ietf.org/timezones/data/leap-seconds.list"
+basic_ntp_servers:
+  - 0.europe.pool.ntp.org iburst
+  - 1.europe.pool.ntp.org iburst
+  - 2.europe.pool.ntp.org iburst
+  - 3.europe.pool.ntp.org iburst
+basic_install_packages:
+  - curl
+  - nano
+  - htop
+  - iotop
+  - iftop
+  - nscd
+  - rsync
+  - git
+  - python-software-properties
+  - ca-certificates
+basic_remove_packages:
+  - portmap
+  - apache2
+  - bind9
+  - samba
+basic_mail_enabled: True
+basic_mail_recipient: hugomrdias@gmail.com
+basic_mail_user: vagrant
+basic_mail_aliases:
+  root: "{{basic_mail_recipient}}"
+  default: "{{basic_mail_recipient}}"
+basic_mail_config:
+  account: gmail
+  host: smtp.gmail.com
+  port: 587
+  from: from@email.com
+  user: user
+  password: secret
+basic_apticron_enabled: True
+basic_apticron_email: hugomrdias@gmail.com
+basic_apticron_notify_no_updates: 0
+basic_apticron_custom_subject: "[apticron] $SYSTEM: $NUM_PACKAGES package update(s)"
+basic_apticron_no_updates_subject: "[apticron] $SYSTEM: no updates"
+basic_swapfile_enabled: False
+basic_swapfile_location: /swapfile
+basic_swapfile_size: 512 # in MB
+basic_swapfile_swappiness: 0

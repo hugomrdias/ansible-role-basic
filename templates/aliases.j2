@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+{% if basic_mail_aliases is not none %}
+{% for key, value in basic_mail_aliases.iteritems() %}
+{{ key }}: {{ value }}
+{% endfor %}
+{% endif %}

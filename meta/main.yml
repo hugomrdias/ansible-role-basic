@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Hugo Dias
+  description: Basic Debian 8 server setup
+  company:
+  license: MIT
+  min_ansible_version: 2
+  platforms:
+    - name: Debian
+      versions:
+      - jessie
+  galaxy_tags:
+    - common
+    - linux
+    - apticron
+    - ntp
+    - email
+    - apt
+    - timezone
+    - locales
+
+dependencies: [tersmitten.locales]

@@ -1,0 +1,30 @@
+---
+  - name: Mail | Install msmtp
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - msmtp
+      - msmtp-mta
+      - ca-certificates
+
+  - name: Mail | Adjust /etc/msmtprc
+    template: src=msmtprc.j2 dest=/etc/msmtprc owner=root group=root mode=644 backup=yes
+
+  - name: Mail | Adjust /etc/aliases
+    template: src=aliases.j2 dest=/etc/aliases owner=root group=root mode=644 backup=yes
+
+  - name: Mail | Remove exim4-base and exim4-config
+    apt: pkg={{ item }} state=absent
+    with_items:
+      - exim4-base
+      - exim4-config
+
+  - name: Mail | Link msmtp to sendmail
+    file: src=/usr/bin/msmtp dest=/usr/bin/sendmail state=link
+
+  - name: Mail | Send a testmail
+    shell: cat /etc/hostname | mail -s "Provision Success" {{ basic_mail_recipient }}
+    changed_when: false
+
+  - name: Mail | Send a testmail to user
+    shell: cat /etc/hostname | mail -s "Provision Success to user" {{ basic_mail_user }}
+    changed_when: false

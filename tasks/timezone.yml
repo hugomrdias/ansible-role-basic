@@ -1,0 +1,29 @@
+---
+  - name: Timezone | Make sure tzdata is installed
+    apt:
+      pkg: tzdata
+      state: present
+
+  # This will always write /etc/localtime
+  - name: Timezone | Update the hardware clock
+    command: dpkg-reconfigure -f noninteractive tzdata
+    changed_when: false
+
+  # So we always need to delete it
+  - name: Timezone | Symlink the correct localtime - pt.1
+    file:
+      path: /etc/localtime
+      state: absent
+    changed_when: false
+
+  # Then re-symlink it to the correct location
+  - name: Timezone | Symlink the correct localtime - pt.2 (/etc/localtime)
+    file:
+      src: /usr/share/zoneinfo/{{basic_timezone}}
+      dest: /etc/localtime
+      state: link
+      owner: root
+      group: root
+      mode: 0644
+    changed_when: false
+    notify: restart rsyslog

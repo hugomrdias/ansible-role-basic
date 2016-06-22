@@ -1,0 +1,28 @@
+# {{ ansible_managed }}
+
+driftfile /var/lib/ntp/drift
+
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+
+leapfile /etc/ntp.leapseconds
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+# Specification of one or more NTP servers
+{% for item in basic_ntp_servers %}
+server {{ item }}
+{% endfor %}
+
+# Use Ubuntu's ntp server as a fallback.
+server ntp.ubuntu.com
+
+# NTP restricts
+# By default, exchange time with everybody, but don't allow configuration.
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+restrict 127.0.0.1
+restrict ::1

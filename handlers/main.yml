@@ -1,0 +1,15 @@
+---
+  - name: restart ntp
+    service: name=ntp state=restarted
+
+  - name: restart rsyslog
+    service: name=rsyslog state=restarted
+
+  - name: swapoff
+    command: swapoff -av
+
+  - name: swapon
+    command: swapon -av
+
+  - name: reload sysctl
+    command: sysctl -p

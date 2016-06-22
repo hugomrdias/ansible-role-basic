@@ -1,0 +1,28 @@
+# {{ ansible_managed }}
+# Default settings that all others account inherit
+defaults
+auth on
+tls  on
+tls_starttls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+port 25
+
+# Logging - uncomment either syslog or logfile, having both uncommented disable$
+syslog on
+# Or to log to log own file
+#logfile  /var/log/msmtp.log
+
+#keepbcc  on
+
+aliases /etc/aliases
+
+# Gmail/Google Apps (configure as may as you want)
+account {{ basic_mail_config.account }}
+host   {{ basic_mail_config.host }}
+port   {{ basic_mail_config.port }}
+from   {{ basic_mail_config.from }}
+user   {{ basic_mail_config.user }}
+password  {{ basic_mail_config.password }}
+
+# Default account to use
+account default : {{ basic_mail_config.account }}
