@@ -1,4 +1,4 @@
-# ansible-role-basic [![Build Status](https://travis-ci.org/hugomrdias/ansible-role-basic.svg?branch=master)](https://travis-ci.org/hugomrdias/ansible-role-basic)
+# ansible-role-basic [![build status](https://gitlab.com/hugomrdias/ansible-role-basic/badges/master/build.svg)](https://gitlab.com/hugomrdias/ansible-role-basic/commits/master)
 > Role to do basic setup in Debian systems
 
 This is for advanced users.
