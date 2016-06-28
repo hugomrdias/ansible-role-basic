@@ -1,7 +1,8 @@
 image: hugomrdias/debian-ansible
 test:
     script:
-    - ansible-playbook tests/test.yml --syntax-check
+        - ansible-galaxy install -r tests/roles.yml -p tests/roles
+        - ansible-playbook tests/test.yml --syntax-check
 
     # Run the role/playbook with ansible-playbook.
     #- ansible-playbook tests/test.yml --limit localhost
