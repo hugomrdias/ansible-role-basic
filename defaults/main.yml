@@ -19,6 +19,7 @@ basic_install_packages:
   - git
   - python-software-properties
   - ca-certificates
+  - bsd-mailx
 basic_remove_packages:
   - portmap
   - apache2
