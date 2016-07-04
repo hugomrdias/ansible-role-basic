@@ -14,13 +14,13 @@
     apt: pkg={{item}} state=removed purge=yes
     with_items: "{{basic_remove_packages}}"
 
-  - name: Upgrade apt
-    apt: upgrade=yes autoremove=yes
-    when: inventory_hostname != 'localhost'
-
   - name: Install basic packages
     apt: pkg={{item}} state=latest
     with_items: "{{basic_install_packages}}"
+
+  - name: Upgrade apt
+    apt: upgrade=yes autoremove=yes
+    when: inventory_hostname != 'localhost'
 
   - include: mail.yml
     when: basic_mail_enabled is defined and basic_mail_enabled
