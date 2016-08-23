@@ -1,9 +1,4 @@
 ---
-  - name: set hostname
-    hostname:
-      name: "{{ basic_hostname }}"
-    when: inventory_hostname != 'localhost'
-
   - name: apt update
     apt: update_cache=yes
 
