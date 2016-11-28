@@ -5,18 +5,11 @@ auth on
 tls  on
 tls_starttls on
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
-port 25
 
-# Logging - uncomment either syslog or logfile, having both uncommented disable$
-syslog on
-# Or to log to log own file
-#logfile  /var/log/msmtp.log
-
-#keepbcc  on
+logfile  /var/log/msmtp.log
 
 aliases /etc/aliases
 
-# Gmail/Google Apps (configure as may as you want)
 account {{ basic_mail_config.account }}
 host   {{ basic_mail_config.host }}
 port   {{ basic_mail_config.port }}
